@@ -15,6 +15,7 @@
       <a href="#home" class="nav-link active" data-section="home">Home</a>
       <a href="#surprise" class="nav-link" data-section="surprise">Surprise</a>
       <a href="#treehole" class="nav-link" data-section="treehole">Tree Hole</a>
+      <a href="#schedule" class="nav-link" data-section="schedule">Schedule</a>
     </div>
     <div class="nav-hamburger" id="navHamburger">
       <span></span><span></span><span></span>
@@ -75,7 +76,37 @@
     </div>
   </section>
 
-  <!-- ============ SECTION 3: KNOT RECORD (hidden, revealed by surprise) ============ -->
+  <!-- ============ SECTION 3: PERSONAL SCHEDULE ============ -->
+  <section id="schedule" class="section section-schedule">
+    <div class="section-inner">
+      <h2 class="section-title">Personal Schedule</h2>
+      <p class="section-desc">Plan your day, Bird King style</p>
+      <div class="schedule-container">
+        <div class="schedule-todo">
+          <h3 class="schedule-sub-title">To-Do List</h3>
+          <div class="todo-input-area">
+            <input type="text" id="todoInput" placeholder="添加新的待办事项..." />
+            <button id="todoAddBtn">+</button>
+          </div>
+          <ul class="todo-list" id="todoList"></ul>
+        </div>
+        <div class="schedule-calendar">
+          <div class="calendar-header">
+            <button class="cal-nav" id="calPrev">&lsaquo;</button>
+            <span class="cal-month-year" id="calMonthYear"></span>
+            <button class="cal-nav" id="calNext">&rsaquo;</button>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fireworks-overlay" id="fireworksOverlay">
+      <div class="fireworks-text">鸟王万岁！</div>
+      <canvas id="fireworksCanvas"></canvas>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 4: KNOT RECORD (hidden, revealed by surprise) ============ -->
   <section id="knot" class="section section-knot" style="display:none;">
     <div class="knot-bg-overlay"></div>
     <div class="section-inner knot-inner">
