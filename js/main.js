@@ -112,15 +112,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== DECORATIVE STICKERS ====================
   const stickersLayer = document.getElementById('stickersLayer');
   const stickerImages = [
-    'images/stickers/pingu1.svg',
-    'images/stickers/pingu2.svg',
-    'images/stickers/guitar.svg',
-    'images/stickers/lightning.svg',
-    'images/stickers/skull.svg',
-    'images/stickers/star.svg',
-    'images/stickers/heart.svg',
-    'images/stickers/music.svg',
-    'images/stickers/rock-hand.svg',
+    'images/stickers/sticker-cat.png',
+    'images/stickers/sticker-girl1.png',
+    'images/stickers/sticker-girl2.png',
+    'images/stickers/sticker-girl3.png',
+    'images/stickers/sticker-girl4.png',
+    'images/stickers/sticker-photo1.png',
+    'images/stickers/sticker-photo2.png',
+    'images/stickers/sticker-photo3.png',
   ];
 
   function placeStickers() {
@@ -139,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.alt = '';
       sticker.appendChild(img);
 
-      const size = 50 + Math.random() * 50;
+      const size = 70 + Math.random() * 80;
       sticker.style.width = size + 'px';
       sticker.style.height = size + 'px';
 

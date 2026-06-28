@@ -28,7 +28,7 @@ body {
   color: var(--color-text);
   overflow-x: hidden;
   line-height: 1.6;
-  cursor: url('../images/stickers/pingu-cursor.png') 16 16, auto;
+  cursor: url('../images/stickers/cat-cursor.png') 24 24, auto;
 }
 
 ::selection {
@@ -775,12 +775,8 @@ body {
 
 .deco-sticker {
   position: absolute;
-  filter: drop-shadow(3px 4px 6px rgba(0,0,0,0.6));
+  filter: drop-shadow(3px 4px 8px rgba(0,0,0,0.7));
   transition: transform 0.3s ease;
-  background: white;
-  padding: 6px;
-  border: 2px solid #1a1a1a;
-  border-radius: 3px;
 }
 
 .deco-sticker img {
