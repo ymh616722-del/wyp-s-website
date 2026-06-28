@@ -375,6 +375,199 @@ document.addEventListener('DOMContentLoaded', () => {
 
   timelinePosts.forEach(p => observerPosts.observe(p));
 
+  // ==================== PERSONAL SCHEDULE ====================
+  const todoInput = document.getElementById('todoInput');
+  const todoAddBtn = document.getElementById('todoAddBtn');
+  const todoList = document.getElementById('todoList');
+  const calendarGrid = document.getElementById('calendarGrid');
+  const calMonthYear = document.getElementById('calMonthYear');
+  const calPrev = document.getElementById('calPrev');
+  const calNext = document.getElementById('calNext');
+  const fireworksOverlay = document.getElementById('fireworksOverlay');
+  const fireworksCanvas = document.getElementById('fireworksCanvas');
+
+  let calDate = new Date();
+  let todos = JSON.parse(localStorage.getItem('birdKingTodos') || '[]');
+
+  const MONTH_NAMES_ZH = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+
+  function renderCalendar() {
+    if (!calendarGrid) return;
+    const year = calDate.getFullYear();
+    const month = calDate.getMonth();
+    calMonthYear.textContent = `${MONTH_NAMES_ZH[month]} ${year}`;
+
+    calendarGrid.innerHTML = '';
+    const dayHeaders = ['日','一','二','三','四','五','六'];
+    dayHeaders.forEach(d => {
+      const hdr = document.createElement('div');
+      hdr.className = 'cal-day-header';
+      hdr.textContent = d;
+      calendarGrid.appendChild(hdr);
+    });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+
+    for (let i = 0; i < firstDay; i++) {
+      const blank = document.createElement('div');
+      blank.className = 'cal-day blank';
+      calendarGrid.appendChild(blank);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'cal-day';
+      cell.textContent = d;
+      if (d === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+        cell.classList.add('today');
+      }
+      calendarGrid.appendChild(cell);
+    }
+  }
+
+  calPrev?.addEventListener('click', () => {
+    calDate.setMonth(calDate.getMonth() - 1);
+    renderCalendar();
+  });
+
+  calNext?.addEventListener('click', () => {
+    calDate.setMonth(calDate.getMonth() + 1);
+    renderCalendar();
+  });
+
+  renderCalendar();
+
+  function saveTodos() {
+    localStorage.setItem('birdKingTodos', JSON.stringify(todos));
+  }
+
+  function renderTodos() {
+    if (!todoList) return;
+    todoList.innerHTML = '';
+    todos.forEach((todo, idx) => {
+      const li = document.createElement('li');
+      li.className = 'todo-item' + (todo.done ? ' completed' : '');
+
+      const text = document.createElement('span');
+      text.className = 'todo-text';
+      text.textContent = todo.text;
+
+      const actions = document.createElement('div');
+      actions.className = 'todo-actions';
+
+      const doneBtn = document.createElement('button');
+      doneBtn.className = 'todo-done-btn';
+      doneBtn.textContent = todo.done ? '↩' : '✓';
+      doneBtn.title = todo.done ? '撤销' : '完成';
+      doneBtn.addEventListener('click', () => toggleTodo(idx));
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'todo-del-btn';
+      delBtn.textContent = '✕';
+      delBtn.title = '删除';
+      delBtn.addEventListener('click', () => deleteTodo(idx));
+
+      actions.appendChild(doneBtn);
+      actions.appendChild(delBtn);
+      li.appendChild(text);
+      li.appendChild(actions);
+      todoList.appendChild(li);
+    });
+  }
+
+  function addTodo() {
+    const text = todoInput?.value.trim();
+    if (!text) return;
+    todos.push({ text, done: false });
+    saveTodos();
+    renderTodos();
+    todoInput.value = '';
+  }
+
+  function toggleTodo(idx) {
+    const wasNotDone = !todos[idx].done;
+    todos[idx].done = !todos[idx].done;
+    saveTodos();
+    renderTodos();
+    if (wasNotDone) launchFireworks();
+  }
+
+  function deleteTodo(idx) {
+    todos.splice(idx, 1);
+    saveTodos();
+    renderTodos();
+  }
+
+  todoAddBtn?.addEventListener('click', addTodo);
+  todoInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addTodo();
+  });
+
+  renderTodos();
+
+  // --- Fireworks ---
+  function launchFireworks() {
+    if (!fireworksCanvas || !fireworksOverlay) return;
+    fireworksOverlay.classList.add('active');
+    const ctx = fireworksCanvas.getContext('2d');
+    fireworksCanvas.width = window.innerWidth;
+    fireworksCanvas.height = window.innerHeight;
+
+    const particles = [];
+    const colors = ['#c8ff00','#ff3cac','#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff922b','#e599f7'];
+
+    for (let burst = 0; burst < 6; burst++) {
+      const cx = Math.random() * fireworksCanvas.width;
+      const cy = Math.random() * fireworksCanvas.height * 0.6 + fireworksCanvas.height * 0.1;
+      for (let i = 0; i < 40; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 2 + Math.random() * 4;
+        particles.push({
+          x: cx, y: cy,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 1,
+          decay: 0.008 + Math.random() * 0.012,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: 2 + Math.random() * 3
+        });
+      }
+    }
+
+    let animId;
+    function animate() {
+      ctx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+      let alive = false;
+      particles.forEach(p => {
+        if (p.life <= 0) return;
+        alive = true;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.04;
+        p.life -= p.decay;
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      if (alive) {
+        animId = requestAnimationFrame(animate);
+      }
+    }
+
+    animate();
+
+    setTimeout(() => {
+      cancelAnimationFrame(animId);
+      ctx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+      fireworksOverlay.classList.remove('active');
+    }, 5000);
+  }
+
   // ==================== KEYBOARD ====================
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
