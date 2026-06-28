@@ -573,11 +573,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5000);
   }
 
+  // ==================== MUSIC WIDGET ====================
+  const musicToggle = document.getElementById('musicToggle');
+  const musicPanel = document.getElementById('musicPanel');
+  const musicClose = document.getElementById('musicClose');
+  const musicIframe = document.getElementById('musicIframe');
+  let musicLoaded = false;
+
+  musicToggle?.addEventListener('click', () => {
+    const isOpen = musicPanel.classList.contains('open');
+    if (isOpen) {
+      musicPanel.classList.remove('open');
+    } else {
+      if (!musicLoaded) {
+        musicIframe.src = musicIframe.dataset.src;
+        musicLoaded = true;
+      }
+      musicPanel.classList.add('open');
+    }
+  });
+
+  musicClose?.addEventListener('click', () => {
+    musicPanel.classList.remove('open');
+  });
+
   // ==================== KEYBOARD ====================
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       lightbox?.classList.remove('active');
       noteModal?.classList.remove('active');
+      musicPanel?.classList.remove('open');
     }
   });
 
