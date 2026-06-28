@@ -128,7 +128,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const count = Math.min(16, Math.floor(vw / 120));
+    const count = 8;
+
+    const positions = [
+      { left: '2%',  top: '8%' },
+      { right: '3%', top: '5%' },
+      { left: '5%',  top: '45%' },
+      { right: '2%', top: '40%' },
+      { left: '1%',  bottom: '15%' },
+      { right: '4%', bottom: '12%' },
+      { left: '35%', bottom: '3%' },
+      { right: '30%', top: '3%' },
+    ];
 
     for (let i = 0; i < count; i++) {
       const sticker = document.createElement('div');
@@ -138,26 +149,14 @@ document.addEventListener('DOMContentLoaded', () => {
       img.alt = '';
       sticker.appendChild(img);
 
-      const size = 70 + Math.random() * 80;
+      const size = 120 + Math.random() * 60;
       sticker.style.width = size + 'px';
       sticker.style.height = size + 'px';
 
-      const edge = Math.floor(Math.random() * 4);
-      if (edge === 0) {
-        sticker.style.left = Math.random() * (vw - size) + 'px';
-        sticker.style.top = Math.random() * 80 + 'px';
-      } else if (edge === 1) {
-        sticker.style.right = Math.random() * 80 + 'px';
-        sticker.style.top = Math.random() * (vh - size) + 'px';
-      } else if (edge === 2) {
-        sticker.style.left = Math.random() * (vw - size) + 'px';
-        sticker.style.bottom = Math.random() * 80 + 'px';
-      } else {
-        sticker.style.left = Math.random() * 80 + 'px';
-        sticker.style.top = Math.random() * (vh - size) + 'px';
-      }
+      const pos = positions[i];
+      Object.keys(pos).forEach(k => { sticker.style[k] = pos[k]; });
 
-      sticker.style.transform = `rotate(${(Math.random() - 0.5) * 40}deg)`;
+      sticker.style.transform = `rotate(${(Math.random() - 0.5) * 30}deg)`;
       stickersLayer.appendChild(sticker);
     }
   }
