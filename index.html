@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bird King's World</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -551,19 +552,22 @@
         <span>Music</span>
         <button class="music-close" id="musicClose">&times;</button>
       </div>
-      <iframe
-        id="musicIframe"
-        frameborder="0"
-        marginwidth="0"
-        marginheight="0"
-        width="100%"
-        height="450"
-        src=""
-        data-src="https://music.163.com/outchain/player?type=0&id=504644389&auto=0&height=430"
-      ></iframe>
+      <div id="musicPlayerContainer">
+        <meting-js
+          server="netease"
+          type="playlist"
+          id="504644389"
+          theme="#c8ff00"
+          list-folded="false"
+          order="random"
+          preload="auto"
+        ></meting-js>
+      </div>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

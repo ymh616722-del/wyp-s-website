@@ -577,20 +577,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const musicToggle = document.getElementById('musicToggle');
   const musicPanel = document.getElementById('musicPanel');
   const musicClose = document.getElementById('musicClose');
-  const musicIframe = document.getElementById('musicIframe');
-  let musicLoaded = false;
 
   musicToggle?.addEventListener('click', () => {
-    const isOpen = musicPanel.classList.contains('open');
-    if (isOpen) {
-      musicPanel.classList.remove('open');
-    } else {
-      if (!musicLoaded) {
-        musicIframe.src = musicIframe.dataset.src;
-        musicLoaded = true;
-      }
-      musicPanel.classList.add('open');
-    }
+    musicPanel.classList.toggle('open');
   });
 
   musicClose?.addEventListener('click', () => {

@@ -1130,8 +1130,23 @@ body {
   color: #fff;
 }
 
-.music-panel iframe {
-  display: block;
+#musicPlayerContainer {
+  padding: 8px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+#musicPlayerContainer .aplayer {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#musicPlayerContainer .aplayer .aplayer-list ol li {
+  border-top-color: rgba(255,255,255,0.06) !important;
+}
+
+#musicPlayerContainer .aplayer .aplayer-list ol li:hover {
+  background: rgba(255,255,255,0.05) !important;
 }
 
 @media (max-width: 768px) {
