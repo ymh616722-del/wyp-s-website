@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.transform += ' scale(0.5)';
     }
 
-    let html = '';
+    let html = `<button class="note-delete-btn" data-note-id="${note.id}">&times;</button>`;
     if (note.text) html += `<div class="note-text">${escapeHtml(note.text)}</div>`;
     if (note.mediaUrl && note.mediaType === 'image') {
       html += `<img class="note-media" src="${note.mediaUrl}" alt="">`;
@@ -218,7 +218,15 @@ document.addEventListener('DOMContentLoaded', () => {
     html += `<div class="note-time">${note.time}</div>`;
     el.innerHTML = html;
 
-    el.addEventListener('click', () => openNoteModal(note, el));
+    el.querySelector('.note-delete-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      deleteNote(note.id, el);
+    });
+
+    el.addEventListener('click', (e) => {
+      if (e.target.classList.contains('note-delete-btn')) return;
+      openNoteModal(note, el);
+    });
 
     // Make draggable
     makeDraggable(el);
@@ -240,6 +248,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function deleteNote(noteId, el) {
+    el.style.transition = 'opacity 0.3s, transform 0.3s';
+    el.style.opacity = '0';
+    el.style.transform += ' scale(0.3)';
+    setTimeout(() => el.remove(), 300);
+
+    savedNotes = savedNotes.filter(n => n.id !== noteId);
+    localStorage.setItem('treeholeNotes', JSON.stringify(savedNotes));
+  }
+
   function openNoteModal(note, el) {
     let html = '';
     if (note.text) html += `<p style="font-size:1.1rem;margin-bottom:16px">${escapeHtml(note.text)}</p>`;
@@ -249,8 +267,14 @@ document.addEventListener('DOMContentLoaded', () => {
       html += `<video src="${note.mediaUrl}" controls style="max-width:100%;border-radius:8px"></video>`;
     }
     html += `<p style="font-size:0.8rem;color:rgba(255,255,255,0.3);margin-top:16px">${note.time}</p>`;
+    html += `<button class="modal-delete-btn" style="margin-top:16px;padding:8px 24px;background:#ff4444;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.85rem;">删除这条</button>`;
     noteModalContent.innerHTML = html;
     noteModal.classList.add('active');
+
+    noteModalContent.querySelector('.modal-delete-btn').addEventListener('click', () => {
+      deleteNote(note.id, el);
+      noteModal.classList.remove('active');
+    });
   }
 
   noteModalClose?.addEventListener('click', () => {
