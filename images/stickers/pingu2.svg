@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 150" fill="none">
+  <g transform="translate(10,10)">
+    <!-- body -->
+    <ellipse cx="50" cy="95" rx="35" ry="40" fill="#1a1a1a" stroke="#000" stroke-width="2"/>
+    <!-- belly -->
+    <ellipse cx="50" cy="100" rx="22" ry="28" fill="#f5f0e0"/>
+    <!-- head tilted -->
+    <ellipse cx="50" cy="45" rx="30" ry="28" fill="#1a1a1a" stroke="#000" stroke-width="2" transform="rotate(-8,50,45)"/>
+    <!-- face -->
+    <ellipse cx="50" cy="48" rx="20" ry="18" fill="#f5f0e0" transform="rotate(-8,50,45)"/>
+    <!-- eyes (happy squint) -->
+    <path d="M37 40 Q42 36 47 40" stroke="#000" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M53 38 Q58 34 63 38" stroke="#000" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- beak open -->
+    <ellipse cx="50" cy="52" rx="7" ry="5" fill="#ff6b35"/>
+    <path d="M44 52 Q50 58 56 52" fill="#cc4420"/>
+    <!-- flippers up -->
+    <path d="M15 80 Q0 65 10 55" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M85 80 Q100 65 90 55" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <!-- feet -->
+    <ellipse cx="38" cy="132" rx="12" ry="5" fill="#ff6b35"/>
+    <ellipse cx="62" cy="132" rx="12" ry="5" fill="#ff6b35"/>
+    <!-- party hat -->
+    <polygon points="50,8 38,30 62,30" fill="#ff3cac" stroke="#000" stroke-width="1.5"/>
+    <circle cx="50" cy="8" r="4" fill="#c8ff00"/>
+  </g>
+</svg>

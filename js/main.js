@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==================== SURPRISE MODULE ====================
-  const surpriseBtn = document.getElementById('surpriseBtn');
   const surpriseMessage = document.getElementById('surpriseMessage');
   const surpriseIcon = document.getElementById('surpriseIcon');
   const surpriseBox = document.getElementById('surpriseBox');
@@ -77,35 +76,95 @@ document.addEventListener('DOMContentLoaded', () => {
   const messages = [
     '我是王大螂，风吹屁股凉……',
     '王燕鹏，你最棒了！',
-    '别点了看看别的吧'
+    '别点了看看别的吧',
   ];
 
-  const icons = ['🪳', '⭐', '👀'];
-
   function handleSurprise() {
-    if (clickCount >= 3) return;
+    if (clickCount >= 4) return;
 
-    surpriseMessage.classList.remove('show');
+    if (clickCount < 3) {
+      surpriseMessage.classList.remove('show');
 
-    setTimeout(() => {
-      surpriseMessage.textContent = messages[clickCount];
-      surpriseMessage.classList.add('show');
-      surpriseIcon.textContent = icons[clickCount];
+      setTimeout(() => {
+        surpriseMessage.textContent = messages[clickCount];
+        surpriseMessage.classList.add('show');
 
-      surpriseBox.style.transform = 'scale(1.1)';
-      setTimeout(() => { surpriseBox.style.transform = ''; }, 300);
+        surpriseBox.style.transform = 'scale(1.15) rotate(5deg)';
+        setTimeout(() => { surpriseBox.style.transform = ''; }, 300);
 
+        clickCount++;
+      }, 150);
+    } else {
+      const knotSection = document.getElementById('knot');
+      knotSection.style.display = '';
+      knotSection.scrollIntoView({ behavior: 'smooth' });
+      surpriseMessage.classList.remove('show');
+      setTimeout(() => {
+        surpriseMessage.textContent = '↓ 往下看吧 ↓';
+        surpriseMessage.classList.add('show');
+      }, 150);
       clickCount++;
-
-      if (clickCount >= 3) {
-        surpriseBtn.classList.add('disabled');
-        surpriseBtn.textContent = 'No More :)';
-      }
-    }, 150);
+    }
   }
 
-  surpriseBtn?.addEventListener('click', handleSurprise);
   surpriseBox?.addEventListener('click', handleSurprise);
+
+  // ==================== DECORATIVE STICKERS ====================
+  const stickersLayer = document.getElementById('stickersLayer');
+  const stickerImages = [
+    'images/stickers/pingu1.svg',
+    'images/stickers/pingu2.svg',
+    'images/stickers/guitar.svg',
+    'images/stickers/lightning.svg',
+    'images/stickers/skull.svg',
+    'images/stickers/star.svg',
+    'images/stickers/heart.svg',
+    'images/stickers/music.svg',
+    'images/stickers/rock-hand.svg',
+  ];
+
+  function placeStickers() {
+    if (!stickersLayer) return;
+    stickersLayer.innerHTML = '';
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const count = Math.min(16, Math.floor(vw / 120));
+
+    for (let i = 0; i < count; i++) {
+      const sticker = document.createElement('div');
+      sticker.className = 'deco-sticker';
+      const img = document.createElement('img');
+      img.src = stickerImages[i % stickerImages.length];
+      img.alt = '';
+      sticker.appendChild(img);
+
+      const size = 50 + Math.random() * 50;
+      sticker.style.width = size + 'px';
+      sticker.style.height = size + 'px';
+
+      const edge = Math.floor(Math.random() * 4);
+      if (edge === 0) {
+        sticker.style.left = Math.random() * (vw - size) + 'px';
+        sticker.style.top = Math.random() * 80 + 'px';
+      } else if (edge === 1) {
+        sticker.style.right = Math.random() * 80 + 'px';
+        sticker.style.top = Math.random() * (vh - size) + 'px';
+      } else if (edge === 2) {
+        sticker.style.left = Math.random() * (vw - size) + 'px';
+        sticker.style.bottom = Math.random() * 80 + 'px';
+      } else {
+        sticker.style.left = Math.random() * 80 + 'px';
+        sticker.style.top = Math.random() * (vh - size) + 'px';
+      }
+
+      sticker.style.transform = `rotate(${(Math.random() - 0.5) * 40}deg)`;
+      stickersLayer.appendChild(sticker);
+    }
+  }
+
+  placeStickers();
+  window.addEventListener('resize', placeStickers);
 
   // ==================== TREE HOLE ====================
   const treeholePost = document.getElementById('treeholePost');
@@ -124,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
     '#e1bee7', '#ffe0b2', '#dcedc8', '#f0f4c3'
   ];
 
-  // Load saved notes
   let savedNotes = JSON.parse(localStorage.getItem('treeholeNotes') || '[]');
   savedNotes.forEach(note => createStickyNote(note, false));
 
@@ -162,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
       color: stickyColors[Math.floor(Math.random() * stickyColors.length)]
     };
 
-    // Save text-only data (media URLs aren't persistent)
     const noteForStorage = { ...note, mediaUrl: null };
     savedNotes.push(noteForStorage);
     localStorage.setItem('treeholeNotes', JSON.stringify(savedNotes));
@@ -207,7 +264,6 @@ document.addEventListener('DOMContentLoaded', () => {
       openNoteModal(note, el);
     });
 
-    // Make draggable
     makeDraggable(el);
 
     treeholeBoard.appendChild(el);
@@ -220,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Ensure board height accommodates the note
     const neededHeight = note.y + 220;
     if (neededHeight > treeholeBoard.offsetHeight) {
       treeholeBoard.style.minHeight = neededHeight + 'px';

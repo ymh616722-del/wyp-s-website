@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130">
+  <g stroke="#000" stroke-width="2.5" fill="#f5f0e0">
+    <!-- palm -->
+    <rect x="25" y="50" width="50" height="50" rx="8"/>
+    <!-- index finger up -->
+    <rect x="28" y="10" width="14" height="45" rx="7" fill="#f5f0e0"/>
+    <!-- pinky up -->
+    <rect x="58" y="10" width="14" height="45" rx="7" fill="#f5f0e0"/>
+    <!-- middle+ring folded -->
+    <rect x="38" y="35" width="11" height="20" rx="5.5" fill="#e0d8c8"/>
+    <rect x="50" y="35" width="11" height="20" rx="5.5" fill="#e0d8c8"/>
+    <!-- thumb -->
+    <rect x="14" y="58" width="15" height="28" rx="7" fill="#f5f0e0" transform="rotate(15,22,72)"/>
+    <!-- wrist -->
+    <rect x="30" y="98" width="40" height="25" rx="4" fill="#f5f0e0"/>
+  </g>
+</svg>
