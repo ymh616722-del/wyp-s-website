@@ -410,10 +410,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const today = new Date();
 
+    const prevMonthDays = new Date(year, month, 0).getDate();
     for (let i = 0; i < firstDay; i++) {
-      const blank = document.createElement('div');
-      blank.className = 'cal-day blank';
-      calendarGrid.appendChild(blank);
+      const cell = document.createElement('div');
+      cell.className = 'cal-day other-month';
+      cell.textContent = prevMonthDays - firstDay + 1 + i;
+      calendarGrid.appendChild(cell);
     }
 
     for (let d = 1; d <= daysInMonth; d++) {
@@ -423,6 +425,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (d === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
         cell.classList.add('today');
       }
+      calendarGrid.appendChild(cell);
+    }
+
+    const totalCells = firstDay + daysInMonth;
+    const remaining = (7 - totalCells % 7) % 7;
+    for (let i = 1; i <= remaining; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cal-day other-month';
+      cell.textContent = i;
       calendarGrid.appendChild(cell);
     }
   }
@@ -450,29 +461,23 @@ document.addEventListener('DOMContentLoaded', () => {
       const li = document.createElement('li');
       li.className = 'todo-item' + (todo.done ? ' completed' : '');
 
+      const check = document.createElement('button');
+      check.className = 'todo-check';
+      check.textContent = todo.done ? '✓' : '';
+      check.addEventListener('click', () => toggleTodo(idx));
+
       const text = document.createElement('span');
       text.className = 'todo-text';
       text.textContent = todo.text;
 
-      const actions = document.createElement('div');
-      actions.className = 'todo-actions';
+      const del = document.createElement('button');
+      del.className = 'todo-delete';
+      del.textContent = '✕';
+      del.addEventListener('click', () => deleteTodo(idx));
 
-      const doneBtn = document.createElement('button');
-      doneBtn.className = 'todo-done-btn';
-      doneBtn.textContent = todo.done ? '↩' : '✓';
-      doneBtn.title = todo.done ? '撤销' : '完成';
-      doneBtn.addEventListener('click', () => toggleTodo(idx));
-
-      const delBtn = document.createElement('button');
-      delBtn.className = 'todo-del-btn';
-      delBtn.textContent = '✕';
-      delBtn.title = '删除';
-      delBtn.addEventListener('click', () => deleteTodo(idx));
-
-      actions.appendChild(doneBtn);
-      actions.appendChild(delBtn);
+      li.appendChild(check);
       li.appendChild(text);
-      li.appendChild(actions);
+      li.appendChild(del);
       todoList.appendChild(li);
     });
   }
