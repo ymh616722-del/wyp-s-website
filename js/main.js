@@ -586,6 +586,12 @@ document.addEventListener('DOMContentLoaded', () => {
     musicPanel.classList.remove('open');
   });
 
+  document.querySelectorAll('.music-track').forEach(track => {
+    track.addEventListener('click', () => {
+      window.open(track.dataset.url, '_blank');
+    });
+  });
+
   // ==================== KEYBOARD ====================
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
