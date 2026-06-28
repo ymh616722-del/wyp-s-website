@@ -24,10 +24,11 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: var(--color-bg);
+  background: transparent;
   color: var(--color-text);
   overflow-x: hidden;
   line-height: 1.6;
+  cursor: none;
 }
 
 ::selection {
@@ -131,6 +132,22 @@ body {
   margin-bottom: 48px;
 }
 
+/* ==================== GLOBAL BACKGROUND LAYERS ==================== */
+.global-bg-bottom {
+  position: fixed;
+  inset: 0;
+  background: url('../images/bg/bg-bottom.jpg') center/cover no-repeat;
+  z-index: -2;
+}
+
+.global-bg-top {
+  position: fixed;
+  inset: 0;
+  background: url('../images/bg/bg-top.jpg') center/cover no-repeat;
+  z-index: -1;
+  pointer-events: none;
+}
+
 /* ==================== SECTION 0: HOME ==================== */
 .section-home {
   height: 100vh;
@@ -139,28 +156,6 @@ body {
   justify-content: center;
   overflow: hidden;
   cursor: none;
-}
-
-.home-bg-bottom {
-  position: absolute;
-  inset: 0;
-  background: url('../images/bg/bg-bottom.jpg') center/cover no-repeat;
-  z-index: 1;
-}
-
-.home-bg-top {
-  position: absolute;
-  inset: 0;
-  background: url('../images/bg/bg-top.jpg') center/cover no-repeat;
-  z-index: 2;
-  pointer-events: none;
-}
-
-#maskCanvas {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
 }
 
 .home-content {
@@ -227,7 +222,7 @@ body {
 
 /* ==================== SECTION 1: SURPRISE ==================== */
 .section-surprise {
-  background: var(--color-bg);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -306,7 +301,7 @@ body {
 
 /* ==================== SECTION 2: TREE HOLE ==================== */
 .section-treehole {
-  background: var(--color-bg);
+  background: transparent;
   min-height: 100vh;
 }
 
@@ -516,14 +511,11 @@ body {
 /* ==================== SECTION 3: KNOT RECORD ==================== */
 .section-knot {
   position: relative;
-  background: url('../images/bg/bg-bottom.jpg') center/cover no-repeat fixed;
+  background: transparent;
 }
 
 .knot-bg-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 10, 10, 0.75);
-  backdrop-filter: blur(3px);
+  display: none;
 }
 
 .knot-inner {

@@ -28,44 +28,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   sections.forEach(s => observerNav.observe(s));
 
-  // ==================== HOME: MASK REVEAL ====================
-  const canvas = document.getElementById('maskCanvas');
+  // ==================== GLOBAL MASK REVEAL ====================
   const bgTop = document.getElementById('bgTop');
-  const homeSection = document.getElementById('home');
 
-  if (canvas && bgTop) {
-    const ctx = canvas.getContext('2d');
+  if (bgTop) {
     let mouseX = -200, mouseY = -200;
-    const REVEAL_RADIUS = 94; // ~2.5cm at 96dpi
+    const REVEAL_RADIUS = 94;
 
-    function resizeCanvas() {
-      canvas.width = homeSection.offsetWidth;
-      canvas.height = homeSection.offsetHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    homeSection.addEventListener('mousemove', (e) => {
-      const rect = homeSection.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
       drawMask();
     });
 
-    homeSection.addEventListener('mouseleave', () => {
+    document.addEventListener('mouseleave', () => {
       mouseX = -200;
       mouseY = -200;
       drawMask();
     });
 
     function drawMask() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Load the top bg image and draw it with a circular cutout
-      const topImg = new Image();
-      topImg.crossOrigin = 'anonymous';
-
-      // We use CSS mask on bgTop instead for better performance
       if (mouseX < 0) {
         bgTop.style.mask = 'none';
         bgTop.style.webkitMask = 'none';
@@ -77,15 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
       bgTop.style.webkitMask = gradient;
     }
 
-    // Touch support for mobile
-    homeSection.addEventListener('touchmove', (e) => {
-      e.preventDefault();
+    document.addEventListener('touchmove', (e) => {
       const touch = e.touches[0];
-      const rect = homeSection.getBoundingClientRect();
-      mouseX = touch.clientX - rect.left;
-      mouseY = touch.clientY - rect.top;
+      mouseX = touch.clientX;
+      mouseY = touch.clientY;
       drawMask();
-    }, { passive: false });
+    }, { passive: true });
   }
 
   // ==================== SURPRISE MODULE ====================
