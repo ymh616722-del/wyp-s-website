@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bird King's World</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="main-nav">
+    <div class="nav-logo">BK's World</div>
+    <div class="nav-links">
+      <a href="#home" class="nav-link active" data-section="home">Home</a>
+      <a href="#surprise" class="nav-link" data-section="surprise">Surprise</a>
+      <a href="#treehole" class="nav-link" data-section="treehole">Tree Hole</a>
+      <a href="#knot" class="nav-link" data-section="knot">Knot Record</a>
+    </div>
+    <div class="nav-hamburger" id="navHamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ============ SECTION 0: HOME ============ -->
+  <section id="home" class="section section-home">
+    <canvas id="maskCanvas"></canvas>
+    <div class="home-bg-bottom" id="bgBottom"></div>
+    <div class="home-bg-top" id="bgTop"></div>
+    <div class="home-content">
+      <h1 class="home-title">Welcome to<br>Bird King's World</h1>
+      <p class="home-subtitle">王燕鹏个人网站</p>
+      <div class="home-hint">move your mouse to explore</div>
+      <div class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 1: SURPRISE (Interactive Module) ============ -->
+  <section id="surprise" class="section section-surprise">
+    <div class="section-inner">
+      <h2 class="section-title">???</h2>
+      <p class="section-desc">Click the button below...</p>
+      <div class="surprise-box" id="surpriseBox">
+        <div class="surprise-icon" id="surpriseIcon">?</div>
+      </div>
+      <div class="surprise-message" id="surpriseMessage"></div>
+      <button class="surprise-btn" id="surpriseBtn">Click Me</button>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 2: TREE HOLE ============ -->
+  <section id="treehole" class="section section-treehole">
+    <div class="section-inner">
+      <h2 class="section-title">Bird King's Tree Hole</h2>
+      <p class="section-desc">Leave your thoughts here</p>
+      <div class="treehole-input-area">
+        <textarea id="treeholeInput" placeholder="你来了，今天有什么想说的吗？"></textarea>
+        <div class="treehole-actions">
+          <label class="upload-btn" for="treeholeFile">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Upload
+          </label>
+          <input type="file" id="treeholeFile" accept="image/*,video/*" style="display:none">
+          <button class="post-btn" id="treeholePost">Post</button>
+        </div>
+        <div class="upload-preview" id="uploadPreview"></div>
+      </div>
+      <div class="treehole-board" id="treeholeBoard">
+        <!-- Sticky notes will be placed here -->
+      </div>
+    </div>
+    <!-- Sticky note detail modal -->
+    <div class="note-modal" id="noteModal">
+      <div class="note-modal-content" id="noteModalContent"></div>
+      <button class="note-modal-close" id="noteModalClose">&times;</button>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 3: KNOT RECORD ============ -->
+  <section id="knot" class="section section-knot">
+    <div class="knot-bg-overlay"></div>
+    <div class="section-inner knot-inner">
+      <h2 class="section-title knot-title">Knot Record</h2>
+      <p class="section-desc knot-desc">给漶漫的时间打一个绳结</p>
+      <div class="timeline" id="timeline">
+
+        <!-- Post 1: 2023年9月 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2023年9月</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>那么一切的一切都是从我提交了辩论队的报名申请表开始，我看着你的QQ昵称和背景，我说这个学长的QQ看起来像那种中二热血青年。</p>
+              <div class="post-images single">
+                <img src="images/posts/docx_img_0.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 2: 2023年10月 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2023年10月</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>那也是毫无悬念的进入了这个辩论队成为了学妹，后面就开始打辩论讨论辩题，就感觉你是个很负责，很有想法又很有趣的学姐，那会儿还是会担心打扰到你，唯唯诺诺.jpg</p>
+              <div class="post-images single">
+                <img src="images/posts/docx_img_1.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 3: 2023年10月 (continuation) -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2023年10月</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>真正熟悉起来应该是讨论讨论的题目就突然乐队和乐夏了，每晚看乐夏热聊到凌晨三点，以及学校里一些鸡零狗碎的人和事哈哈哈哈哈哈，我当时还有怀疑过，我是不是喜欢你，每次看到你的消息就很开心，而且聊起来就是完全不想睡觉，我笑死了，这条不能被dcy看见。</p>
+              <div class="post-video-placeholder">
+                <div class="video-slot">视频1 待上传</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 4: 2023年12月 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2023年12月</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>然后就这样买了白皮书的票一起去看了我人生中第一场livehouse还好是和你一起去的，与此同时搜了聊天记录才发现，原来这个小孩一定得留也是这个月说的，感动的我当场截屏。</p>
+              <div class="post-images double">
+                <img src="images/posts/docx_img_2.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_3.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 5: 2024年5月19日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2024年5月19日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>一起去看了蛙池，又幸福了</p>
+              <div class="post-images double">
+                <img src="images/posts/docx_img_4.png" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_6.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 6: 2024年 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2024年</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>第一次和你一起去那个我偶然发现的小酒馆，其实还带了拍立得但是坏了，然后我俩就坐在路边说好幸福。</p>
+              <div class="post-images double">
+                <img src="images/posts/docx_img_7.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_8.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 7: 2024年6月28日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2024年6月28日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>我们又去这个小酒馆了，其实还带了拍立得但是坏了，但是还是好幸福。但这个酒馆关了，好难过。</p>
+              <div class="post-images grid-4">
+                <img src="images/posts/docx_img_9.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_10.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_11.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_12.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 8: 2024年10月19日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2024年10月19日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>开学了又见到面了，一起吃完饭在去H自习的路上，我其实最喜欢你这张照片，特别萌。</p>
+              <div class="post-images double">
+                <img src="images/posts/docx_img_13.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_14.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 9: 2024年11月2日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2024年11月2日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>去拍天真蓝了！两个！神经病！</p>
+              <div class="post-images grid-4">
+                <img src="images/posts/docx_img_15.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_16.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_17.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_19.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 10: 2024年11月10日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2024年11月10日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>一起去音乐节了，看到了声碎麻园和重塑，太值了！</p>
+              <div class="post-images triple">
+                <img src="images/posts/docx_img_20.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_21.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_22.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+              <div class="post-video-placeholder">
+                <div class="video-slot">视频2 待上传</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 11: 2024年12月21日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2024年12月21日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>一块自习。好呆</p>
+              <div class="post-images double">
+                <img src="images/posts/docx_img_23.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_24.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 12: 2024年12月28日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2024年12月28日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>王燕鹏摸小猫被猫抓了。。。。一起去打狂犬疫苗。怎么还在憋笑。</p>
+              <div class="post-images single">
+                <img src="images/posts/docx_img_25.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 13: 12月29日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">12月29日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>一起拍"杀了他，顺便杀了我～拜托你了～"两个人依旧神经病</p>
+              <div class="post-video-placeholder">
+                <div class="video-slot">视频5 待上传</div>
+                <div class="video-slot">视频6 待上传</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 14: 2025年3月26日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2025年3月26日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>在去自习的路上发现了最好的光，这次拍的真的太好看了</p>
+              <div class="post-images triple">
+                <img src="images/posts/docx_img_26.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_27.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_28.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+              <div class="post-video-placeholder">
+                <div class="video-slot">视频7 待上传</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 15: 2025年3月28日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2025年3月28日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>时间终于来到了著名的吐樱桃核大赛，当时还想能不能长两棵小樱桃树（）</p>
+              <div class="post-images double">
+                <img src="images/posts/docx_img_30.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_31.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+              <div class="post-video-placeholder">
+                <div class="video-slot">视频8 待上传</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 16: 2025年4月19日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2025年4月19日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>去看石岩了嘻嘻嘻又幸福</p>
+              <div class="post-video-placeholder">
+                <div class="video-slot">视频9 待上传</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 17: 2025年4月25日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2025年4月25日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>两个人在西财门口的小酒馆drink，倒挂的树很好看，我说我捏的小猫是你</p>
+              <div class="post-images double">
+                <img src="images/posts/docx_img_32.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_33.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 18: 2025年8月10日 -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2025年8月10日</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>你和dcy来青海找我，你问我是不是我最好的朋友，当然是的确定以及肯定再过八百年都不会变，还有我虽然老和你一起骂dcy，但我希望你们能幸福</p>
+              <div class="post-images double">
+                <img src="images/posts/docx_img_34.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_35.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 19: 无时间 (meals) -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">无时间</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>下面这些我其实记不得具体时间了，这条是记录我们吃过的很多顿饭的其中一些。</p>
+              <div class="post-images grid-4">
+                <img src="images/posts/docx_img_36.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_37.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_38.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+                <img src="images/posts/docx_img_39.jpeg" alt="" loading="lazy" onclick="openLightbox(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post 20: 2026年6月 (closing) -->
+        <div class="timeline-post" data-aos="fade-up">
+          <div class="post-card post-card-final">
+            <div class="post-header">
+              <div class="post-avatar">YM</div>
+              <div class="post-meta">
+                <span class="post-author">黄雨萌</span>
+                <span class="post-date">2026年6月</span>
+              </div>
+            </div>
+            <div class="post-body">
+              <p>后面是很漫长的，没有你陪我在学校里的一年，我的相册里没有你的照片了，这一年你很辛苦，但我就是会相信你一定会撑过去，相信你一定会前程似锦，你就是这样好的你。</p>
+              <p class="post-highlight">2023年12月我说"我们是盘盘交错的树根"，起初只是看到学校树的根系实在茂密，但没想到这会成为我们羁绊的预言。所以虽然我发这条朋友圈是23年的12月，我依旧把它放在最后一个，和你送我的画放在一起，作为你的大学生涯中，我们共存记忆的封笔。</p>
+              <p>说来愧疚，这个网页本是想要作为你的生日礼物，但没想到拖了这么久，还提前给你透了底，让你一直空怀期待。但我现在终于能完成它，希望作为毕业礼物，你会觉得也还不赖。</p>
+              <p class="post-highlight">毕业季会把很多人吹向不同的地方，或许人与人就会像空中飘着擦肩的柳絮一样再也不会相见。但我们不会的。我们是盘盘交错的树根，无论枝叶如何生长，我们永远彼此缠绕，用软的根系霸占彼此表层土下的空间。</p>
+              <p>给漶漫的时间打一个绳结吧，这是我留给我们友谊的小小私心，也是呆呆的我能想到最真挚的，只属于你的献礼。</p>
+              <p class="post-final-line">毕业快乐王燕鹏。王燕鹏每晚都要睡个好觉。</p>
+              <p class="post-signature">如果我不是你最好的朋友就会飞去给你屁屁一脚的黄雨萌<br>2026年6月</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <img src="" alt="" id="lightboxImg">
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
