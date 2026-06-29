@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 150);
     } else {
       const knotSection = document.getElementById('knot');
+      knotSection.style.display = '';
       knotSection.scrollIntoView({ behavior: 'smooth' });
       surpriseMessage.classList.remove('show');
       setTimeout(() => {
