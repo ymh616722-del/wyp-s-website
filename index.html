@@ -16,6 +16,7 @@
       <a href="#surprise" class="nav-link" data-section="surprise">Surprise</a>
       <a href="#treehole" class="nav-link" data-section="treehole">Tree Hole</a>
       <a href="#schedule" class="nav-link" data-section="schedule">Schedule</a>
+      <a href="#travelmap" class="nav-link" data-section="travelmap">Travel</a>
     </div>
     <div class="nav-hamburger" id="navHamburger">
       <span></span><span></span><span></span>
@@ -106,7 +107,51 @@
     </div>
   </section>
 
-  <!-- ============ SECTION 4: KNOT RECORD (hidden, revealed by surprise) ============ -->
+  <!-- ============ SECTION 4: TRAVEL MAP ============ -->
+  <section id="travelmap" class="section section-travelmap">
+    <div class="section-inner">
+      <h2 class="section-title">Want to See the World</h2>
+      <p class="section-desc">点击省份，探索中国</p>
+      <div class="map-legend">
+        <span class="legend-item"><span class="legend-dot default"></span>未标记</span>
+        <span class="legend-item"><span class="legend-dot wantgo"></span>我想去</span>
+        <span class="legend-item"><span class="legend-dot been"></span>已经去过了</span>
+      </div>
+      <div class="china-map-container" id="chinaMapContainer"></div>
+    </div>
+    <div class="province-modal" id="provinceModal">
+      <div class="province-modal-content" id="provinceModalContent">
+        <button class="province-modal-close" id="provinceModalClose">&times;</button>
+        <h3 class="province-name" id="provinceName"></h3>
+        <div class="province-special" id="provinceSpecial"></div>
+        <div class="province-info-grid">
+          <div class="info-card">
+            <div class="info-card-title">🍜 美食</div>
+            <div class="info-card-body" id="provinceFood"></div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">🏔 景点</div>
+            <div class="info-card-body" id="provinceSpots"></div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">📅 最佳时间</div>
+            <div class="info-card-body" id="provinceTime"></div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">⚠️ 注意事项</div>
+            <div class="info-card-body" id="provinceTips"></div>
+          </div>
+        </div>
+        <div class="province-actions">
+          <button class="province-btn btn-wantgo" id="btnWantGo">🔵 我想去</button>
+          <button class="province-btn btn-been" id="btnBeen">🟠 已经去过了</button>
+          <button class="province-btn btn-clear" id="btnClear">清除标记</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 5: KNOT RECORD (hidden, revealed by surprise) ============ -->
   <section id="knot" class="section section-knot" style="display:none;">
     <div class="knot-bg-overlay"></div>
     <div class="section-inner knot-inner">
@@ -589,5 +634,6 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script src="js/travel-map.js"></script>
 </body>
 </html>

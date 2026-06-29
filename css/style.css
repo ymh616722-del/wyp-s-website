@@ -152,6 +152,7 @@ body {
 .section-surprise::before,
 .section-treehole::before,
 .section-schedule::before,
+.section-travelmap::before,
 .section-knot::before {
   content: '';
   position: absolute;
@@ -164,6 +165,7 @@ body {
 .section-surprise > *,
 .section-treehole > *,
 .section-schedule > *,
+.section-travelmap > *,
 .section-knot > * {
   position: relative;
   z-index: 1;
@@ -1018,6 +1020,212 @@ body {
 @media (max-width: 768px) {
   .schedule-container {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==================== TRAVEL MAP ==================== */
+.section-travelmap {
+  background: transparent;
+  min-height: 100vh;
+}
+
+.map-legend {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-dot.default { background: rgba(255,255,255,0.15); }
+.legend-dot.wantgo { background: #4a9eff; }
+.legend-dot.been { background: #ff8c00; }
+
+.china-map-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.china-map-container svg {
+  width: 100%;
+  height: auto;
+}
+
+.china-map-container svg path {
+  fill: rgba(255,255,255,0.12);
+  stroke: rgba(255,255,255,0.25);
+  stroke-width: 0.5;
+  cursor: pointer;
+  transition: fill 0.3s, stroke 0.3s;
+}
+
+.china-map-container svg path:hover {
+  fill: rgba(200,255,0,0.25);
+  stroke: var(--color-accent);
+  stroke-width: 1;
+}
+
+.china-map-container svg path.wantgo {
+  fill: rgba(74,158,255,0.4);
+  stroke: #4a9eff;
+}
+
+.china-map-container svg path.been {
+  fill: rgba(255,140,0,0.4);
+  stroke: #ff8c00;
+}
+
+.china-map-container svg path.wantgo:hover {
+  fill: rgba(74,158,255,0.55);
+}
+
+.china-map-container svg path.been:hover {
+  fill: rgba(255,140,0,0.55);
+}
+
+/* Province modal */
+.province-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+}
+
+.province-modal.active {
+  display: flex;
+}
+
+.province-modal-content {
+  background: rgba(20,20,20,0.95);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 560px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.province-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.province-modal-close:hover {
+  color: #fff;
+}
+
+.province-name {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+
+.province-special {
+  font-size: 0.95rem;
+  color: #ff3cac;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.province-special:empty {
+  display: none;
+}
+
+.province-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.info-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.info-card-title {
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.info-card-body {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+}
+
+.province-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.province-btn {
+  padding: 10px 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  color: var(--color-text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.province-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.btn-wantgo:hover {
+  border-color: #4a9eff;
+  background: rgba(74,158,255,0.15);
+}
+
+.btn-been:hover {
+  border-color: #ff8c00;
+  background: rgba(255,140,0,0.15);
+}
+
+.btn-clear:hover {
+  border-color: #ff4444;
+}
+
+@media (max-width: 768px) {
+  .province-info-grid {
+    grid-template-columns: 1fr;
+  }
+  .province-modal-content {
+    padding: 20px;
   }
 }
 
