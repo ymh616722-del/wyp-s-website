@@ -97,12 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       const knotSection = document.getElementById('knot');
       knotSection.style.display = '';
+      knotSection.querySelectorAll('img[data-src]').forEach(img => {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+      });
       knotSection.scrollIntoView({ behavior: 'smooth' });
       surpriseMessage.classList.remove('show');
-      setTimeout(() => {
-        surpriseMessage.textContent = '↓ 往下看吧 ↓';
-        surpriseMessage.classList.add('show');
-      }, 150);
       clickCount++;
     }
   }
